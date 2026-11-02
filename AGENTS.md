@@ -4,15 +4,15 @@
 
 ## Current handoff — 2026-11-02
 
-**Current stopping point:** The owner supplied a refreshed, exact build-order prompt and asked for a more visual, audio-rich game with drag-and-drop, voice explanations, and in-game coins; the refreshed prompt is copied verbatim to `GAME_SPEC.md`, and `plan.md` now captures the new requests plus the Java assignment. The attached prompt requires Phaser Graphics/no images, while the owner's message also asks for royalty-free character assets; this conflict needs the owner's choice. **The revised plan is awaiting that choice and approval. No game or asset implementation has started.**
+**Current stopping point:** The owner supplied a refreshed, exact build-order prompt and asked for a more visual, audio-rich game with drag-and-drop, voice explanations, in-game coins, and real characters. The owner explicitly chose real character art, overriding the attached prompt's no-images rule for character sprites only; arrays, pointers, traces, and algorithm visuals remain Phaser Graphics. Source free/open-license character art and retain credits, but do not search/retrieve assets until plan approval. `GAME_SPEC.md`, `plan.md`, and this handoff are public. **Only approval of the complete revised plan remains; no game code or external assets have been started.**
 
 **Completed and verified:** The public repo is <https://github.com/Foday-Sall/DSA>; its latest verified public `main` is documentation-only. A separate `github` remote points there; keep the Manus-managed `origin` untouched. The local workspace is `/home/ubuntu/dsajourney`; its `main` has no upstream configured, so inspect the Manus checkpoint workflow before changing branch tracking. The latest `GAME_SPEC.md` copy matched the uploaded prompt by SHA-256. The local environment has Node.js, pnpm, and Java, but `ANDROID_HOME` is unset. For each handoff, verify the latest local documentation commit is also on the public `github/main` remote.
 
 **Not done:** No Phaser game, Java lesson content, DSA classes, scene, Trace Panel, sound/music/voice, drag/drop, game coin loop, character artwork/audio assets, Capacitor Android project, `TODO.md`, README, contribution guide, PR template, gameplay-source push, or Android package has been implemented or verified.
 
 **Next safe steps:**
-1. Get the owner's choice for the conflict between the attached no-images/Graphics-only prompt and the request for royalty-free character assets, plus approval of the revised plan.
-2. Keep the uploaded Java assignment PDF private. Only after approval, create `TODO.md`, inspect Webdev diagnostics and Git checkpoint setup, then implement M1 only.
+1. Obtain explicit approval of the full revised plan; the character-art choice is resolved in favor of free/open-license sprites for characters only.
+2. Keep the uploaded Java assignment PDF private. After approval, create `TODO.md`, inspect Webdev diagnostics and Git checkpoint setup, then implement M1 only.
 3. Test that `index.html` runs, update/push `AGENTS.md`, deliver the four milestone wrap-up items in `GAME_SPEC.md`, and stop until the owner says “next.”
 4. Repeat one milestone at a time. Before each handoff, record exact files, actual commands/checks and outcomes, work remaining, blockers, and the next milestone. Never mark unverified work complete.
 
@@ -22,7 +22,7 @@
 - The owner wants a public, collaborative repo where AI agents submit pull requests and the owner reviews/merges them. Contributors work from branches/forks; public status alone does not grant direct write access. Do not overwrite Manus `origin` or claim anonymous agents can push.
 - Game runtime: JavaScript and Phaser 3 loaded from the CDN, plain browser scripts, no bundler/build step. Root `index.html` must run when opened directly in a browser; internet is needed for Phaser CDN.
 - Mobile direction: prepare Capacitor Android packaging as a wrapper for the same static game. The current workspace has Java but no `ANDROID_HOME`; APK/AAB build/signing needs Android SDK/Android Studio and signing credentials.
-- Character art conflict: `GAME_SPEC.md` says Phaser Graphics only/no images, but the owner's later message asks for free royalty-free character assets. Do not search for/import character assets until the owner chooses. Regardless, draw arrays, indices, arrows, pointers, and trace visuals in Phaser Graphics.
+- Character art: the owner explicitly chose real, free/open-license character art, overriding `GAME_SPEC.md`'s no-images rule for character sprites only. Keep arrays, indices, arrows, pointers, and trace visuals in Phaser Graphics. Preserve notices/credits; do not use recognizable copyrighted-franchise characters or retrieve assets before plan approval.
 - New direct requests: make the game highly visual and game-like; add simple drag-and-drop, spoken explanations, music/SFX, and collectible **non-purchasable in-game coins**. Coins are not real money, payments, or crypto. Provide captions/replay/mute for speech/audio, and button/keyboard alternatives for every drag action.
 - Audio: after plan approval, use audio with published free/open licenses and preserve the applicable notices/credits. Built-in browser/device speech synthesis is the planned voice option; keep written text available if voices are unsupported or muted.
 - The learning game uses real JavaScript classes whose exact state is rendered. Also teach the uploaded Java assignment using Java signatures/snippets, line-by-line traces, and clear JS-to-Java explanations. The learner predicts before actions and gets explanations, never a punitive reset.
@@ -36,7 +36,7 @@ Read the latest uploaded prompt verbatim. It supersedes conflicting older exampl
 - Keep the exact Phaser CDN URL in `GAME_SPEC.md`; no npm, bundler, or build command for browser play. Every milestone must leave `index.html` runnable.
 - Build **one milestone at a time**, in order: M1 `index.html`/`main.js`/BootScene/MenuScene; M2 Stack class/scene; M3 Queue; M4 LinkedList; M5 Search plus Java `findSmallest`, palindrome, search/count, in-place removal; M6 Sorts plus Java Task/objects and assignment Bubble trace; M7 Merge; M8 Quick; M9 Recursion (factorial, Fibonacci, Hanoi); M10 Boss; M11 World hub. No skipping ahead; assignment content stays inside M5/M6, no extra milestone.
 - At every milestone end: test the direct `index.html`; update this file's status board and dated log; publish the code and handoff to the public repo; deliver **What you just learned** (3 bullets), exact **Test it yourself** action/result, **Assignment link**, and **Check your understanding** (2 Q&A); then STOP until the learner says **“next.”**
-- The user also asks for drag/drop where useful, visual before/after array values and indices, optional narrated voice explanations, sound/music, and non-purchasable learning coins. Keep accessible text/captions and keyboard/button alternatives. Use licensed audio only after the owner approves the plan.
+- The user also asks for drag/drop where useful, visual before/after array values and indices, optional narrated voice explanations, sound/music, real character art, and non-purchasable learning coins. Keep accessible text/captions and keyboard/button alternatives. Use licensed character/audio assets only after plan approval.
 - Use the exact sample arrays, logs, error messages, Boss pass mark, and rank ranges from `GAME_SPEC.md`; when earlier text in this file differs, follow `GAME_SPEC.md`.
 
 ## Earlier detailed room and Java requirements
@@ -117,9 +117,9 @@ Java examples must obey the assignment's ban on `Arrays.sort()`, streams, `Array
 | --- | --- | --- |
 | Public repo `Foday-Sall/DSA` created and verified public | Done | `gh repo view` confirmed public URL. |
 | Latest prompt `GAME_SPEC.md` | Done | Copied verbatim from the owner's attachment; SHA-256 matched before publishing. |
-| Revised `plan.md` | Draft | Includes the Java assignment, eleven user-specified milestones, drag/drop, voice/audio and in-game coins; awaiting art-source choice and plan approval. |
+| Revised `plan.md` | Draft | Includes the Java assignment, eleven milestones, licensed character art, drag/drop, voice/audio and in-game coins; awaiting owner approval. |
 | Public handoff (`AGENTS.md`, `plan.md`, `GAME_SPEC.md`) | Done | Latest docs are on public `main`; verify GitHub contents and inspect `git log` for the newest sync. |
-| Character art source | Waiting for owner | Prompt says no images/Graphics-only; later message asks for royalty-free character assets. Do not retrieve until resolved. |
+| Character art source | Resolved by owner | Use free/open-license sprites for characters only; preserve credits. Search/retrieve after plan approval. |
 | Voice/audio, drag/drop, collectible game coins | Planned, not built | Implement only after plan approval; coins are gameplay rewards, never real money. |
 | `TODO.md` | Not started | Create only after owner approves the revised plan. |
 | Phaser game / DSA classes / scenes / Trace Panel | Not started | After approval, deliver M1 only and wait for “next.” |
@@ -163,3 +163,11 @@ Java examples must obey the assignment's ban on `Arrays.sort()`, streams, `Array
 - No gameplay code, asset retrieval, TODO, dependency install, tests, Capacitor wrapper, or APK has been started.
 - Current blocker: owner must choose Graphics-only characters versus a royalty-free sprite exception and approve the revised plan.
 - Next action after the owner's decision/approval: create `TODO.md`, implement M1 only, verify the menu runs from `index.html`, update/push this handoff, provide the four milestone wrap-up sections, and wait for “next.”
+
+
+### 2026-11-02 — character art choice confirmed
+
+- The owner clarified: use real characters. This explicitly overrides the prompt's no-images rule for character sprites only; keep data structures, array cells, indices, pointers, and algorithm traces in Phaser Graphics.
+- Plan/handoff now specify free/open-license or public-domain character assets with preserved license notices/credits, not recognizable copyrighted-franchise characters.
+- No game assets have been searched for or retrieved because the revised plan still needs explicit approval. No game implementation has started.
+- Next: ask the owner to approve the complete revised plan. After approval, create `TODO.md`, search the approved asset catalog, implement M1 only, verify it runs, publish the handoff, provide the four required milestone wrap-up sections, and wait for “next.”
