@@ -171,3 +171,11 @@ Java examples must obey the assignment's ban on `Arrays.sort()`, streams, `Array
 - Plan/handoff now specify free/open-license or public-domain character assets with preserved license notices/credits, not recognizable copyrighted-franchise characters.
 - No game assets have been searched for or retrieved because the revised plan still needs explicit approval. No game implementation has started.
 - Next: ask the owner to approve the complete revised plan. After approval, create `TODO.md`, search the approved asset catalog, implement M1 only, verify it runs, publish the handoff, provide the four required milestone wrap-up sections, and wait for “next.”
+
+
+### 2026-11-02 — character choice synced to public repo
+
+- Updated `plan.md` and `AGENTS.md` to record the owner's choice of real free/open-license character sprites as a narrow exception to the no-images prompt; kept DSA state visuals in Phaser Graphics.
+- Committed as `2adb0e7` and pushed to public `github/main`. Verification confirmed the repo is public, contains `AGENTS.md`, `GAME_SPEC.md`, and `plan.md`, and the remote ref matched the local commit. `git diff --check` passed.
+- No assets were searched/retrieved and no implementation started; the full plan still awaits explicit approval.
+- Next: ask for plan approval. If approved, create `TODO.md` and implement only M1, then test, update/push this log, present the required learning wrap-up, and wait for “next.”
