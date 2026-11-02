@@ -4,18 +4,17 @@
 
 ## Current handoff — 2026-11-02
 
-**Current stopping point:** The owner provided a detailed Phaser game prompt and asked that it be followed, with this file included so another AI can continue if the current session ends. The implementation plan has been rewritten to incorporate that prompt and the six topics from the owner's Java DSA assignment. **The revised plan is awaiting the owner's approval. No gameplay code has been written.** Do not start game implementation until the owner approves the revised plan.
+**Current stopping point:** The owner provided a detailed Phaser game prompt and asked that it be followed, with this file included so another AI can continue if the current session ends. The implementation plan incorporates that prompt and the six topics from the owner's Java DSA assignment. `AGENTS.md` and `plan.md` were pushed to the public repo in commit `e30c48e` and verified there. **The revised plan is awaiting the owner's approval. No gameplay code has been written.** Do not start game implementation until the owner approves the revised plan.
 
-**Completed and verified:** A public GitHub repository exists at <https://github.com/Foday-Sall/DSA>. The Manus project workspace is `/home/ubuntu/dsajourney`. Its current `origin` is the Manus-managed remote and must not be replaced. At the last inspection, the starter Git commit was empty, and `AGENTS.md` plus `plan.md` were untracked drafts. The local environment has Node.js, pnpm, and Java, but `ANDROID_HOME` is unset. The public GitHub repository was confirmed public and initially empty. The requested `AGENTS.md` and revised `plan.md` are prepared locally; they still need to be pushed to the public repo.
+**Completed and verified:** A public GitHub repository exists at <https://github.com/Foday-Sall/DSA>, and `gh api repos/Foday-Sall/DSA/contents` confirmed `AGENTS.md` and `plan.md` are present. The Manus project workspace is `/home/ubuntu/dsajourney`. Its `origin` is the Manus-managed remote and must not be replaced; a separate `github` remote now points to the public repo. The current `main` branch has no upstream configured, so a future agent must inspect the Manus remote/checkpoint workflow before changing branch tracking; never point the project's checkpoint flow at the public remote by mistake. The local environment has Node.js, pnpm, and Java, but `ANDROID_HOME` is unset.
 
-**Not done:** No Phaser game, Java lesson content, DSA classes, scene, trace panel, Capacitor Android project, `TODO.md`, README, contribution guide, PR template, public source push, or Android package has been implemented or verified.
+**Not done:** No Phaser game, Java lesson content, DSA classes, scene, trace panel, Capacitor Android project, `TODO.md`, README, contribution guide, PR template, gameplay-source push, or Android package has been implemented or verified.
 
 **Next safe steps:**
-1. Finish checking that this `AGENTS.md` and `plan.md` fully reflect the uploaded prompt and assignment; do not copy the uploaded assignment PDF into the public repo.
-2. Publish the handoff/planning documents to the already-created public `DSA` repo, keeping the Manus `origin` intact. Verify the GitHub contents and visibility.
-3. Ask the owner to approve the revised plan. If they request changes, update both `plan.md` and this file before coding.
-4. Only after approval, create `TODO.md` with the complete feature outcomes below, then implement in small milestones. Update this file after each meaningful milestone and before stopping.
-5. Before each handoff, state exactly which files changed, what commands/checks actually ran and their results, what remains, any blockers, and the next concrete actions. Never mark work complete without evidence.
+1. Ask the owner to approve the revised plan. If they request changes, update both `plan.md` and this file before coding.
+2. Only after approval, create `TODO.md` with the complete feature outcomes below, then implement in small milestones. Update this file after each meaningful milestone and before stopping.
+3. Before game work, inspect the bound Webdev config/diagnostics and Git checkpoint relationship; preserve the Manus `origin` and the separate public `github` remote.
+4. Before each handoff, state exactly which files changed, what commands/checks actually ran and their results, what remains, any blockers, and the next concrete actions. Never mark work complete without evidence.
 
 ## Owner-approved direction and non-negotiable decisions
 
@@ -106,7 +105,7 @@ Java examples must obey the assignment's ban on `Arrays.sort()`, streams, `Array
 | Public repo `Foday-Sall/DSA` created and verified public | Done | `gh repo view` confirmed public URL. |
 | Detailed Phaser prompt read and captured in this handoff | Done | Requirements transcribed above from the owner's uploaded prompt. |
 | Revised `plan.md` | Draft | Includes the full DSA Dungeon spec plus Java assignment; awaiting owner approval. |
-| `AGENTS.md` handoff in public GitHub repo | In progress | File prepared locally; publish initial docs without changing Manus `origin`. |
+| `AGENTS.md` handoff and revised plan in public GitHub repo | Done | Commit `e30c48e`; remote contents verified with GitHub API. |
 | `TODO.md` | Not started | Create only after owner approves the revised plan. |
 | Phaser game / DSA classes / scenes / Trace Panel | Not started | Implement only after approval. |
 | Java Lab lesson content | Not started | Implement all six assignment topics after approval. |
@@ -119,8 +118,15 @@ Java examples must obey the assignment's ban on `Arrays.sort()`, streams, `Array
 ### 2026-11-02 — initial specification and handoff
 
 - Read the owner's assignment PDF, then the uploaded `pasted_content.txt` with the full DSA Dungeon game specification.
-- Created public repo `https://github.com/Foday-Sall/DSA`; it was empty at the last check. The project workspace is `/home/ubuntu/dsajourney`, with Manus-managed `origin`; preserve it.
+- Created public repo `https://github.com/Foday-Sall/DSA`; it was empty before the handoff-document push. The project workspace is `/home/ubuntu/dsajourney`, with Manus-managed `origin`; preserve it.
 - Replaced the initial six-lesson-only plan with the expanded Phaser CDN/no-bundler game, all supplied rooms and rules, Capacitor Android scope, and all six assignment lessons.
 - Wrote this handoff before implementation so a future agent can continue without this conversation.
-- No game source, TODO, dependencies, tests, app, Android wrapper, or public source commit has been created yet. The revised plan still needs owner approval.
-- Next: verify and publish `AGENTS.md` and `plan.md` to the public repo, then request approval. After approval, create `TODO.md` before coding.
+- No game source, TODO, dependencies, tests, app, Android wrapper, or gameplay-source commit has been created yet. The revised plan still needs owner approval.
+- Next: request approval. After approval, create `TODO.md` before coding.
+
+### 2026-11-02 — handoff documents published
+
+- Committed `AGENTS.md` and `plan.md` as `e30c48e` and pushed `main` to the separate public `github` remote. GitHub API confirmed both files are visible in `Foday-Sall/DSA`.
+- Verified the Manus `origin` is still configured and unchanged. The local `main` branch currently has no upstream; do not guess or change it before inspecting the project's official checkpoint state.
+- Work completed: public agent handoff and detailed plan only. Game implementation is still not started.
+- Next action: obtain owner approval of the revised plan; after approval create `TODO.md` and begin the game in milestones.
