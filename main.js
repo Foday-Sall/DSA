@@ -13,7 +13,7 @@ const gameConfig = {
     width: 1280,
     height: 720
   },
-  scene: [BootScene, MenuScene]
+  scene: [BootScene, MenuScene, StackScene]
 };
 
 new Phaser.Game(gameConfig);

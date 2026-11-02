@@ -12,14 +12,19 @@ This file is the working checklist for the next agent. Keep it current after eve
 - [x] Menu interactions work with mouse/touch and keyboard (`ENTER`, `I`, `ESC`).
 - [x] M1 source includes the required explanation blocks for its algorithm/UI logic.
 
-## Next milestone: M2 — The Plate Tower
+### M2 — The Plate Tower
 
-- [ ] Add `dsa/Stack.js` from scratch with `top = -1`, max size 5, push (`++top` before storing), pop (read before `--top`), peek, reset, and line-by-line WHY/IF-WRONG explanations.
-- [ ] Add `scenes/StackScene.js` with the plate tower, character, PUSH/POP/PEEK/RESET controls, prediction before every push/pop, overflow/underflow feedback, blue top pointer, and visible grey/struck-through popped cells.
-- [ ] Keep a live trace panel showing `top`, `stackArray`, and `size`.
-- [ ] Log the exact lecture-order operation explanation in the console.
-- [ ] Register the scene without breaking the M1 menu.
-- [ ] Stop after M2 and wait for the learner to say `next`.
+- [x] Add `dsa/Stack.js` from scratch with `top = -1`, max size 5, push (`++top` before storing), pop (read before `--top`), peek, reset, and line-by-line WHY/IF-WRONG explanations.
+- [x] Add `scenes/StackScene.js` with the plate tower, PUSH/POP/PEEK/RESET controls, prediction before every push/pop, overflow/underflow feedback, blue top pointer, and visible grey/struck-through popped cells.
+- [x] Keep a live trace panel showing `top`, `stackArray`, and `size`.
+- [x] Log the exact lecture-order operation explanation in the console.
+- [x] Register the scene without breaking the M1 menu.
+
+## Next milestone: M3 — The Monster Line
+
+- [ ] Add `dsa/Queue.js` from scratch with `front=0`, `rear=-1`, `nItems=0`, five slots, wrap-before-store insert, read-before-move remove, peek, size, and explanations.
+- [ ] Add `scenes/QueueScene.js` with SPAWN/ATTACK/PEEK/RESET, prediction before spawn/attack, horizontal monster line, flat array view, wrap animation/feedback, overflow/underflow, and trace panel.
+- [ ] Preserve the working menu and Plate Tower; stop after M3 and update this handoff.
 
 ## Later milestones (do not implement before the learner says `next`)
 

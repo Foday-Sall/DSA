@@ -94,17 +94,13 @@ class MenuScene extends Phaser.Scene {
   }
 
   startGame() {
-    this.statusText.setColor(this.colors.green);
-    this.statusText.setText('The first room unlocks in Milestone 2: The Plate Tower.');
+    this.scene.start('StackScene');
   }
 
   // ===== EXPLANATION =====
-  // Line 1: this.statusText.setColor(this.colors.green);
-  //   WHY: Green signals a successful, non-error response to the player.
-  //   IF WRONG: the player could mistake the milestone message for a failure.
-  // Line 2: this.statusText.setText(...);
-  //   WHY: Milestone 1 has no DSA room yet, so Start gives honest progress.
-  //   IF WRONG: starting an unregistered scene would cause a runtime error.
+  // Line 1: this.scene.start('StackScene');
+  //   WHY: Start now opens the first playable DSA room delivered in M2.
+  //   IF WRONG: the menu would not connect to the learning game.
   // =========================
 
   showInstructions() {

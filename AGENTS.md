@@ -4,15 +4,15 @@
 
 ## Current handoff — 2026-11-02
 
-**Current stopping point:** The owner approved continuing implementation. Milestone 1 is complete: a direct-open Phaser menu is implemented and verified. Stop here until the owner says `next`, then implement M2 (Stack / The Plate Tower). The owner explicitly chose real character art, overriding the attached prompt's no-images rule for character sprites only; arrays, pointers, traces, and algorithm visuals remain Phaser Graphics. Source free/open-license character art and retain credits when the relevant milestone needs it. `GAME_SPEC.md`, `plan.md`, `TODO.md`, and this handoff are public.
+**Current stopping point:** The owner approved continuing implementation. Milestones 1 and 2 are complete: the direct-open Phaser menu now opens the playable Stack / Plate Tower lesson. Stop here until the owner says `next`, then implement M3 (Queue / The Monster Line). The owner explicitly chose real character art, overriding the attached prompt's no-images rule for character sprites only; arrays, pointers, traces, and algorithm visuals remain Phaser Graphics. Source free/open-license character art and retain credits when the relevant milestone needs it. `GAME_SPEC.md`, `plan.md`, `TODO.md`, and this handoff are public.
 
-**Completed and verified:** The public repo is <https://github.com/Foday-Sall/DSA>; `origin` points to that GitHub repository in this checkout. M1 consists of `index.html`, `main.js`, `scenes/BootScene.js`, `scenes/MenuScene.js`, and `TODO.md`. Node syntax checks passed and a local HTTP check confirmed the entry page serves the Phaser CDN and local scripts. The latest `GAME_SPEC.md` copy matched the uploaded prompt by SHA-256. The local environment has Node.js, pnpm, and Java, but `ANDROID_HOME` is unset. For each handoff, verify the latest commit is pushed to public `github/main`.
+**Completed and verified:** The public repo is <https://github.com/Foday-Sall/DSA>; `origin` points to that GitHub repository in this checkout. M1 consists of `index.html`, `main.js`, `scenes/BootScene.js`, and `scenes/MenuScene.js`; M2 adds `dsa/Stack.js` and `scenes/StackScene.js`; `TODO.md` records the exact next work. Node syntax checks, Stack invariant tests, script-order checks, and local HTTP checks passed. The latest `GAME_SPEC.md` copy matched the uploaded prompt by SHA-256. The local environment has Node.js, pnpm, and Java, but `ANDROID_HOME` is unset. For each handoff, verify the latest commit is pushed to public `github/main`.
 
-**Not done:** M2–M11 gameplay, DSA classes, Trace Panels, sound/music/voice, drag/drop, game coin loop, character artwork/audio assets, Capacitor Android project, README, contribution guide, PR template, and Android package remain unfinished.
+**Not done:** M3–M11 gameplay, Queue and later DSA classes, later Trace Panels, sound/music/voice, drag/drop, game coin loop, character artwork/audio assets, Capacitor Android project, README, contribution guide, PR template, and Android package remain unfinished.
 
 **Next safe steps:**
 1. Keep the uploaded Java assignment PDF private and preserve the public handoff files.
-2. Wait for the owner to say `next`; then implement only M2, test it, update this handoff, and push it.
+2. Wait for the owner to say `next`; then implement only M3, test it, update this handoff, and push it.
 3. Repeat one milestone at a time. Before each handoff, record exact files, actual commands/checks and outcomes, work remaining, blockers, and the next milestone. Never mark unverified work complete.
 
 ## Owner-requested direction and non-negotiable decisions
@@ -121,7 +121,7 @@ Java examples must obey the assignment's ban on `Arrays.sort()`, streams, `Array
 | Character art source | Resolved by owner | Use free/open-license sprites for characters only; preserve credits. Search/retrieve after plan approval. |
 | Voice/audio, drag/drop, collectible game coins | Planned, not built | Implement only after plan approval; coins are gameplay rewards, never real money. |
 | `TODO.md` | M1 complete | Tracks exact M1 evidence and the M2 acceptance clauses. |
-| Phaser game / DSA classes / scenes / Trace Panel | M1 complete | Direct-open menu is implemented; wait for `next` before M2. |
+| Phaser game / DSA classes / scenes / Trace Panel | M2 complete | Menu and Plate Tower are playable; wait for `next` before M3. |
 | Java Lab lesson content | Not started | Implement all six assignment topics after approval. |
 | Capacitor Android wrapper | Not started | SDK is absent; prepare configuration and sync path after approval. |
 | Public code release / PR workflow | Not started | Publish code and instructions after implementation; keep owner review/merge. |
@@ -186,3 +186,11 @@ Java examples must obey the assignment's ban on `Arrays.sort()`, streams, `Array
 - M1 behavior: Phaser 3.80.1 CDN loads before local scripts; BootScene starts MenuScene; the menu shows `DSA DUNGEON`, Start, Instructions, keyboard hints, responsive FIT scaling, and an honest “Plate Tower unlocks in Milestone 2” status instead of starting an unregistered scene.
 - Checks run from `/home/ubuntu/DSA`: Node syntax checks, file/reference checks, and a local `python3 -m http.server` plus `curl` entry-page check. An initial overly strict grep returned non-zero before the HTTP check; the corrected checks passed.
 - Remaining work: M2 Stack class and Plate Tower scene. Do not implement M2 until the owner says `next`.
+
+### 2026-11-02 — Milestone 2 implemented
+
+- Added `dsa/Stack.js` and `scenes/StackScene.js`; updated `index.html`, `main.js`, `scenes/MenuScene.js`, and `TODO.md`.
+- Implemented the lecture invariant `top = -1`, five-cell stack, push-before-store, read-before-decrement pop, peek/reset, overflow/underflow messages, prediction prompts, console logs, blue top pointer, and grey struck-through popped cells.
+- Kept rendering tied to the same `Stack` instance used by the operations. The scene includes a live `top`, `stackArray`, `size`, invariant, and recent-log panel.
+- Checks run from `/home/ubuntu/DSA`: `node --check` for all changed JavaScript, a Node VM invariant test covering push/pop/overflow/underflow, script-order and scene-registration checks, HTTP fetches for Stack sources, and `git diff --check`; all passed. The HTTP command reused the already-running local server because port 4173 was occupied, and the requested files still fetched successfully.
+- Remaining work: M3 Queue / The Monster Line. Do not implement M3 until the owner says `next`.
