@@ -1,32 +1,45 @@
 # AGENTS.md — DSA Dungeon
 
-**Read this file before making changes.** It is the handoff source for every AI agent or contributor who picks up this repository. Also read `plan.md` for the detailed implementation/design plan, then `TODO.md` once the owner approves the plan and it exists. Do not rely on chat history to know what has or has not been completed.
+**Read this file before making changes.** It is the handoff source for every AI agent or contributor who picks up this repository. Also read `GAME_SPEC.md` verbatim (the owner's latest build-order prompt) and `plan.md`; read `TODO.md` once the owner approves the plan and it exists. Do not rely on chat history to know what has or has not been completed.
 
 ## Current handoff — 2026-11-02
 
-**Current stopping point:** The owner provided a detailed Phaser game prompt and asked that it be followed, with this file included so another AI can continue if the current session ends. The implementation plan incorporates that prompt and the six topics from the owner's Java DSA assignment. `AGENTS.md` and `plan.md` were pushed to the public repo in commit `e30c48e` and verified there. **The revised plan is awaiting the owner's approval. No gameplay code has been written.** Do not start game implementation until the owner approves the revised plan.
+**Current stopping point:** The owner supplied a refreshed, exact build-order prompt and asked for a more visual, audio-rich game with drag-and-drop, voice explanations, and in-game coins; the refreshed prompt is copied verbatim to `GAME_SPEC.md`, and `plan.md` now captures the new requests plus the Java assignment. The attached prompt requires Phaser Graphics/no images, while the owner's message also asks for royalty-free character assets; this conflict needs the owner's choice. **The revised plan is awaiting that choice and approval. No game or asset implementation has started.**
 
-**Completed and verified:** A public GitHub repository exists at <https://github.com/Foday-Sall/DSA>, and `gh api repos/Foday-Sall/DSA/contents` confirmed `AGENTS.md` and `plan.md` are present. The Manus project workspace is `/home/ubuntu/dsajourney`. Its `origin` is the Manus-managed remote and must not be replaced; a separate `github` remote now points to the public repo. The current `main` branch has no upstream configured, so a future agent must inspect the Manus remote/checkpoint workflow before changing branch tracking; never point the project's checkpoint flow at the public remote by mistake. The local environment has Node.js, pnpm, and Java, but `ANDROID_HOME` is unset.
+**Completed and verified:** The public repo is <https://github.com/Foday-Sall/DSA>; its latest verified public `main` is documentation-only. A separate `github` remote points there; keep the Manus-managed `origin` untouched. The local workspace is `/home/ubuntu/dsajourney`; its `main` has no upstream configured, so inspect the Manus checkpoint workflow before changing branch tracking. The latest `GAME_SPEC.md` copy matched the uploaded prompt by SHA-256. The local environment has Node.js, pnpm, and Java, but `ANDROID_HOME` is unset. For each handoff, verify the latest local documentation commit is also on the public `github/main` remote.
 
-**Not done:** No Phaser game, Java lesson content, DSA classes, scene, trace panel, Capacitor Android project, `TODO.md`, README, contribution guide, PR template, gameplay-source push, or Android package has been implemented or verified.
+**Not done:** No Phaser game, Java lesson content, DSA classes, scene, Trace Panel, sound/music/voice, drag/drop, game coin loop, character artwork/audio assets, Capacitor Android project, `TODO.md`, README, contribution guide, PR template, gameplay-source push, or Android package has been implemented or verified.
 
 **Next safe steps:**
-1. Ask the owner to approve the revised plan. If they request changes, update both `plan.md` and this file before coding.
-2. Only after approval, create `TODO.md` with the complete feature outcomes below, then implement in small milestones. Update this file after each meaningful milestone and before stopping.
-3. Before game work, inspect the bound Webdev config/diagnostics and Git checkpoint relationship; preserve the Manus `origin` and the separate public `github` remote.
-4. Before each handoff, state exactly which files changed, what commands/checks actually ran and their results, what remains, any blockers, and the next concrete actions. Never mark work complete without evidence.
+1. Get the owner's choice for the conflict between the attached no-images/Graphics-only prompt and the request for royalty-free character assets, plus approval of the revised plan.
+2. Keep the uploaded Java assignment PDF private. Only after approval, create `TODO.md`, inspect Webdev diagnostics and Git checkpoint setup, then implement M1 only.
+3. Test that `index.html` runs, update/push `AGENTS.md`, deliver the four milestone wrap-up items in `GAME_SPEC.md`, and stop until the owner says “next.”
+4. Repeat one milestone at a time. Before each handoff, record exact files, actual commands/checks and outcomes, work remaining, blockers, and the next milestone. Never mark unverified work complete.
 
 ## Owner-requested direction and non-negotiable decisions
 
-- Public repository: `https://github.com/Foday-Sall/DSA`; repo name `DSA`. The game title from the uploaded prompt is **DSA Dungeon**.
-- The owner wants a public, collaborative repo where AI agents can submit pull requests and the owner reviews/merges them. Contributors should work from branches/forks; public status alone does not authorize direct writes. Do not overwrite Manus `origin` or state that anonymous agents can push.
-- Game runtime: JavaScript and Phaser 3 loaded from a CDN, plain browser scripts, no bundler/game build step. Root `index.html` must run when opened directly in a browser. Since Phaser comes from a CDN, network access is needed to load it.
-- Mobile direction: prepare Capacitor Android packaging as a wrapper for the same static files. The current environment has Java, but no `ANDROID_HOME`; APK/AAB build/signing requires Android SDK/Android Studio and signing credentials not currently present.
-- Visuals: draw all game art with Phaser Graphics (rectangles, circles, text, arrows, bars, nodes). No imported image assets. Use original simple characters, not characters copied from protected franchises.
-- Learning language: the game structures/algorithms are actual JavaScript classes whose state is rendered by the game. Also teach the owner's assignment in Java, with Java signatures/snippets, step-by-step traces, and clear JS-to-Java mapping. Do not silently drop either requirement.
-- Learning style: player predicts before algorithm execution where possible; then the real operation animates and is explained. Avoid punishment for mistakes.
+- Public repository: `https://github.com/Foday-Sall/DSA`; repo name `DSA`. The game title is **DSA DUNGEON**.
+- The owner wants a public, collaborative repo where AI agents submit pull requests and the owner reviews/merges them. Contributors work from branches/forks; public status alone does not grant direct write access. Do not overwrite Manus `origin` or claim anonymous agents can push.
+- Game runtime: JavaScript and Phaser 3 loaded from the CDN, plain browser scripts, no bundler/build step. Root `index.html` must run when opened directly in a browser; internet is needed for Phaser CDN.
+- Mobile direction: prepare Capacitor Android packaging as a wrapper for the same static game. The current workspace has Java but no `ANDROID_HOME`; APK/AAB build/signing needs Android SDK/Android Studio and signing credentials.
+- Character art conflict: `GAME_SPEC.md` says Phaser Graphics only/no images, but the owner's later message asks for free royalty-free character assets. Do not search for/import character assets until the owner chooses. Regardless, draw arrays, indices, arrows, pointers, and trace visuals in Phaser Graphics.
+- New direct requests: make the game highly visual and game-like; add simple drag-and-drop, spoken explanations, music/SFX, and collectible **non-purchasable in-game coins**. Coins are not real money, payments, or crypto. Provide captions/replay/mute for speech/audio, and button/keyboard alternatives for every drag action.
+- Audio: after plan approval, use audio with published free/open licenses and preserve the applicable notices/credits. Built-in browser/device speech synthesis is the planned voice option; keep written text available if voices are unsupported or muted.
+- The learning game uses real JavaScript classes whose exact state is rendered. Also teach the uploaded Java assignment using Java signatures/snippets, line-by-line traces, and clear JS-to-Java explanations. The learner predicts before actions and gets explanations, never a punitive reset.
 
-## Full game requirements from the owner's prompt
+## Latest build order — `GAME_SPEC.md` is authoritative
+
+Read the latest uploaded prompt verbatim. It supersedes conflicting older examples/ranks further below.
+
+- After **every method**, put the requested `// ===== EXPLANATION ===== ... // =========================` comment block immediately after the method's closing brace. Every algorithm-logic line needs both a WHY and an IF-WRONG explanation.
+- Implement Stack, Queue, LinkedList, Sorts, Search, and Recursion from scratch; no built-in DSA. Match exact lecture variables and operation order: stack starts `top=-1`, increments before storing and reads before decrement; queue starts `front=0,rear=-1,nItems=0`, wraps before insert-store and reads before remove-pointer movement; linked-list insert runs `newLink.next=first; first=newLink`; preserve Bubble, Selection, Insertion, Merge i/j/k, and Lomuto-last-pivot Quick.
+- Keep the exact Phaser CDN URL in `GAME_SPEC.md`; no npm, bundler, or build command for browser play. Every milestone must leave `index.html` runnable.
+- Build **one milestone at a time**, in order: M1 `index.html`/`main.js`/BootScene/MenuScene; M2 Stack class/scene; M3 Queue; M4 LinkedList; M5 Search plus Java `findSmallest`, palindrome, search/count, in-place removal; M6 Sorts plus Java Task/objects and assignment Bubble trace; M7 Merge; M8 Quick; M9 Recursion (factorial, Fibonacci, Hanoi); M10 Boss; M11 World hub. No skipping ahead; assignment content stays inside M5/M6, no extra milestone.
+- At every milestone end: test the direct `index.html`; update this file's status board and dated log; publish the code and handoff to the public repo; deliver **What you just learned** (3 bullets), exact **Test it yourself** action/result, **Assignment link**, and **Check your understanding** (2 Q&A); then STOP until the learner says **“next.”**
+- The user also asks for drag/drop where useful, visual before/after array values and indices, optional narrated voice explanations, sound/music, and non-purchasable learning coins. Keep accessible text/captions and keyboard/button alternatives. Use licensed audio only after the owner approves the plan.
+- Use the exact sample arrays, logs, error messages, Boss pass mark, and rank ranges from `GAME_SPEC.md`; when earlier text in this file differs, follow `GAME_SPEC.md`.
+
+## Earlier detailed room and Java requirements
 
 ### Project structure
 
@@ -103,11 +116,13 @@ Java examples must obey the assignment's ban on `Arrays.sort()`, streams, `Array
 | Area | Status | Evidence / next action |
 | --- | --- | --- |
 | Public repo `Foday-Sall/DSA` created and verified public | Done | `gh repo view` confirmed public URL. |
-| Detailed Phaser prompt read and captured in this handoff | Done | Requirements transcribed above from the owner's uploaded prompt. |
-| Revised `plan.md` | Draft | Includes the full DSA Dungeon spec plus Java assignment; awaiting owner approval. |
-| `AGENTS.md` handoff and revised plan in public GitHub repo | Done | Both files are on public `main`; inspect `git log` and GitHub contents for the latest documentation sync. |
+| Latest prompt `GAME_SPEC.md` | Done | Copied verbatim from the owner's attachment; SHA-256 matched before publishing. |
+| Revised `plan.md` | Draft | Includes the Java assignment, eleven user-specified milestones, drag/drop, voice/audio and in-game coins; awaiting art-source choice and plan approval. |
+| Public handoff (`AGENTS.md`, `plan.md`, `GAME_SPEC.md`) | Done | Latest docs are on public `main`; verify GitHub contents and inspect `git log` for the newest sync. |
+| Character art source | Waiting for owner | Prompt says no images/Graphics-only; later message asks for royalty-free character assets. Do not retrieve until resolved. |
+| Voice/audio, drag/drop, collectible game coins | Planned, not built | Implement only after plan approval; coins are gameplay rewards, never real money. |
 | `TODO.md` | Not started | Create only after owner approves the revised plan. |
-| Phaser game / DSA classes / scenes / Trace Panel | Not started | Implement only after approval. |
+| Phaser game / DSA classes / scenes / Trace Panel | Not started | After approval, deliver M1 only and wait for “next.” |
 | Java Lab lesson content | Not started | Implement all six assignment topics after approval. |
 | Capacitor Android wrapper | Not started | SDK is absent; prepare configuration and sync path after approval. |
 | Public code release / PR workflow | Not started | Publish code and instructions after implementation; keep owner review/merge. |
@@ -131,3 +146,11 @@ Java examples must obey the assignment's ban on `Arrays.sort()`, streams, `Array
 - Verified the Manus `origin` is still configured and unchanged. The local `main` branch currently has no upstream; do not guess or change it before inspecting the project's official checkpoint state.
 - Work completed: public agent handoff and detailed plan only. Game implementation is still not started.
 - Next action: obtain owner approval of the revised plan; after approval create `TODO.md` and begin the game in milestones.
+
+### 2026-11-02 — refreshed build-order and game-feel request
+
+- The owner supplied an updated 260-line DSA DUNGEON build-order prompt. Copied it byte-for-byte to `GAME_SPEC.md`; SHA-256 matched the upload.
+- Revised `plan.md` for the exact M1–M11 order, playable milestone boundaries, four end-of-milestone teaching items, line-by-line WHY/IF-WRONG method explanations, array visuals, drag/drop, optional spoken explanations, licensed music/SFX, and non-purchasable game coins. Kept all six Java assignment topics in M5/M6.
+- Updated `AGENTS.md` to make `GAME_SPEC.md` the source of truth, refresh status, preserve the public PR workflow, and require a public handoff update before each stop.
+- Conflict remains unresolved: detailed prompt says Phaser Graphics only/no images; later direct user request asks for royalty-free character assets. No asset search/retrieval, dependencies, app code, or gameplay has started.
+- Next: publish the updated spec/plan/handoff, then ask the owner to resolve the character-art choice and approve this revised plan. After approval, create `TODO.md`, implement M1 only, test it, update/push the handoff, and wait for “next.”

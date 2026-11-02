@@ -1,97 +1,103 @@
-# DSA Dungeon — implementation plan
+# DSA Dungeon — revised implementation plan
 
-## Goal and source of truth
+## Goal and scope
 
-Build **DSA Dungeon**, a playable, beginner-friendly JavaScript/Phaser 3 game that teaches data structures and algorithms through prediction, live state changes, and readable traces. Use the owner's uploaded DSA Dungeon specification as the detailed feature source, and also cover the six Java concepts in the uploaded course assignment. The game implementation uses real JavaScript data-structure/algorithm classes because the visible game state must be the same state produced by those classes. To honor the learner's earlier choice and Java assignment, the lessons also show corresponding Java signatures/snippets and explain how the visible algorithm maps to Java.
+Build **DSA Dungeon**, a browser-playable Phaser 3 game that makes arrays, data structures, bugs, and algorithms visible and interactive so a beginner can learn Java concepts by predicting, dragging, tracing, listening, and then seeing the result. The live game is written in JavaScript because the supplied game spec requires real JavaScript classes to drive the visuals. It also teaches all six topics from the learner's Java assignment with Java method signatures/snippets and plain-language JS-to-Java explanations.
 
-The game must run by opening root `index.html` in a browser. Load Phaser 3 from a CDN and use plain JavaScript scripts; do not require Vite, a bundler, or a game build step. The Phaser CDN means browser play needs network access to load Phaser. Capacitor Android packaging is an optional wrapper around the same static game; native APK/AAB compilation needs Android SDK/Android Studio, which is not present in the current workspace. Use original, simply drawn character avatars and no imported image assets, as the uploaded prompt directs.
+The latest uploaded prompt is the implementation authority: open root `index.html` directly, use Phaser 3 from its CDN, use plain scripts with no bundler, follow Milestones 1–11 in order, keep every milestone playable, and stop after each one until the learner says **“next.”** Do not dump the whole game at once. `AGENTS.md` is the public handoff: update it with exact completed work, evidence, stopping point, blockers, and next milestone after every milestone, then push the handoff/code change to the public `DSA` repository before pausing.
 
-## Rooms and learning interactions
+## One unresolved art decision
 
-The hub is a 2D world map of topic rooms. A player circle walks between rooms with arrow keys; on touch devices, provide an equivalent visible direction control. Enter launches a room. Each room has easy, medium, and hard rounds and displays earned stars. Every scene calls the shared `askPredict(question, options, correctIndex, explanation)` helper before an algorithm action whenever prediction is possible, then animates the actual operation and updates the trace panel. A correct prediction adds 10 points and flashes green; an incorrect answer reveals the explanation, flashes orange, and has no score penalty. Store room scores/progress in `localStorage`.
+The detailed uploaded specification requires **Phaser Graphics only and no images**, while the learner's later message asks for **free royalty-free character assets**. These conflict. Until the learner chooses, use Graphics for all characters and game objects; do not search for, retrieve, or import character images. If the learner explicitly chooses to override the no-image rule, source character artwork only from assets whose published license permits the intended use/modification/redistribution, keep the relevant license notices/credits, and still render all arrays, pointers, traces, and algorithm mechanics in Phaser Graphics. Never promise assets are risk-free or exclusive. This does not block planning royalty-free audio.
 
-| Scene/room | Required activity |
+## Game loop, visual learning, and rewards
+
+The student enters a dungeon room, sees real arrays/objects as labelled cells/nodes with index numbers and arrows, predicts the next change, and then performs it with a drag/drop gesture or the Step button. The animation uses the actual JavaScript data-structure/algorithm instance. Show the state before and after each operation, highlight the affected indices/values, and keep the live Trace Panel visible. Each challenge gives a simple explanation and corresponding Java example.
+
+Use drag-and-drop where it teaches the operation: place a value into a stack/queue, move an array value during in-place removal, select a merge half, or move a sort item into its predicted position. Every drag action must have an equivalent keyboard/button action; prediction still occurs before any push/pop/insert/swap. Use an `askPredict(question, options, correctIndex, explanation)` helper. Correct prediction earns +10 points, flashes green, and may award an in-game coin; a wrong choice shows the reason, flashes orange, and loses no points. Add collectible, **non-purchasable** game coins for learning milestones/room completion. They are not real money, payment, crypto, or a requirement to pay. Persist scores, coins, and room progress in `localStorage`.
+
+Add game audio to make rooms feel alive: royalty-free/open-license background music and short sound effects for movement, correct/wrong prediction, data insert/remove/swap, coin pickup, room completion, and the boss. Keep license/attribution notices with the files and in a credits screen or `CREDITS.md`. Provide music/SFX/voice mute and volume controls. Add optional spoken explanations using device/browser speech synthesis, with visible captions and a replay button; text remains available even if voices are unavailable or muted. Search for and retrieve catalog audio only after the owner approves the revised plan and the art-source conflict is resolved; do not generate or use audio before that.
+
+## Ordered playable milestones
+
+Deliver the following stages in order, do not skip ahead, and stop for the learner's **“next”** after each. At the end of each milestone, include: **What you just learned** (three bullets), **Test it yourself** (exact action/input and expected result), **Assignment link** (the relevant Java assignment question/concept), and **Check your understanding** (two Q&A). Before waiting, update and push `AGENTS.md` so another agent knows exactly where work stopped.
+
+| Milestone | Playable deliverable |
 | --- | --- |
-| `StackScene` | Draw a vertical stack as plates. Provide `Push(x)`, `Pop`, `Peek`, `IsEmpty`, and `IsFull`, with an input for `x`. Before push/pop, ask what `top` becomes using three choices. Show a top arrow and greyed popped cells. Overflow/underflow causes a red flash/message. Hard round: push the letters of `JAVA` left-to-right and pop to see `AVAJ`. |
-| `QueueScene` | Draw a 5-slot circular ring and the same array flat below it. Show `front` (orange arrow), `rear` (green arrow), and an `nItems` badge. Provide `Insert(x)`, `Remove`, `Peek`, and `Size`; animate wraparound from index 4 to 0, ask `after insert(60) with rear=4, where does rear point?` with choices `0`, `4`, `5`, or `error`, and show overflow/underflow. Hard round: use a queue to visit a small tree in BFS order and predict the next node. |
-| `LinkedListScene` | Draw rounded nodes connected by `next` arrows and `null`. Provide `InsertFirst(x)`, `DeleteFirst`, `Find(key)`, `Delete(key)`, and `Display`. Show the `first`/head pointer, plus `previous` and `current` during deletion. Predict the new `first`. Hard round: build a stack on the list (`push = insertFirst`, `pop = deleteFirst`). |
-| `SearchScene` | Draw number cells and a magnifier made from Phaser Graphics. Implement linear search and binary search on a sorted array. Count/display linear inspections as `Records inspected: X`; show `left`, `right`, and `mid`, with `mid = left + (right-left)/2`. Ask how many inspections a linear search for `9` takes and which midpoint is checked first. Hard round: search an array of Student objects by matric number, showing fields in a card. Also teach the assignment's first index, last index, count, not-found `-1`, and zero-based indices. |
-| `SortScene` | Draw values as bars and allow Bubble, Selection, and Insertion sort. Provide `Step`, `Auto-play`, and `Reset`. Show comparisons/swaps; Bubble highlights the adjacent pair, Selection shows min-so-far/current, and Insertion lifts the key and shifts values right. Ask for the result after the assignment's first Bubble pass on `{6,3,8,2,5}`. Hard round: sort products by stock descending, then `product_id` ascending. Include `performance.now()` measurements and explain warm-ups plus five timed runs. |
-| `MergeScene` | Animate Merge Sort splitting to single cells, then merging. On each merge show `i`, `j`, and `k`, select the next left/right value, and demonstrate leftover-copy loops. |
-| `QuickScene` | Animate Lomuto partition with the last value as pivot, `i` blue and `j` red. Compare `a[j]` to pivot, swap when `<=`, advance pointers, then put the pivot in its final position and recurse over subarrays. Show size-0/1 base cases. Ask whether `j=3` swaps for `7 vs 2` and where the pivot lands. |
-| `RecursionScene` | Show factorial calls from 5 to 0 as nested frames that push on calls and pop on returns. Include `Factorial(n)`, `Sum(n)`, `Fibonacci(n)`, and `PrintNumbers(n)`. Toggle printing before vs after recursion to reverse output order. Draw the Fibonacci call tree, grey repeated subtrees, show 25 calls for `fib(6)`, then toggle memoization and show reduced calls plus a memo array. Ask prediction questions. |
-| `JavaLabScene` | Add six subchallenges from the course assignment: `findSmallest` method/loop/debugging and trace; two-index case-insensitive/space-insensitive palindrome without reversing; array first/last/count linear search; stable in-place `removeAll` and logical size; `Task` classes/objects, total duration, and priority/duration/original-order selection; Bubble Sort pass trace, comparisons, swaps, and shrinking inner bound. Show Java code and do not provide a submission-ready replacement for the learner's whole assignment. |
-| `BossScene` | Mix 20 multiple-choice questions and 5 live traces selected from all implemented topics, allowing 60 seconds per question. End with a grade screen using Big-O ranks: O(1) Grandmaster, O(n) Knight, O(n²) Squire, O(2ⁿ) Cursed. |
+| **M1** | `index.html`, `main.js`, `scenes/BootScene.js`, `scenes/MenuScene.js`: title “DSA DUNGEON”, Start and Instructions buttons, instructions for the controls, and a browser-runnable menu. Stop and verify it opens directly before adding the stack. |
+| **M2** | `dsa/Stack.js` + `scenes/StackScene.js`: “The Plate Tower,” max size 5, push/pop/peek/reset, trace panel, prediction, overflow/underflow, visible grey/struck-through popped cell, line explanations. |
+| **M3** | `dsa/Queue.js` + `scenes/QueueScene.js`: “The Monster Line,” 5-slot circular queue, flat array, front/rear/nItems, wrap, spawn/attack/peek/reset, prediction, overflow/underflow. |
+| **M4** | `dsa/LinkedList.js` + `scenes/LinkedListScene.js`: “The Chain,” insert/delete/find/display, moving first/current/previous pointers, prediction. |
+| **M5** | `dsa/Search.js` + `scenes/SearchScene.js`: “The Detective,” linear/binary search, 10 boxes, inspection count and trace. Integrate Java assignment practice for `findSmallest`, two-index palindrome, first/last/count search, and in-place array removal into this playable learning path rather than creating an unlisted milestone. |
+| **M6** | `dsa/Sorts.js` + `scenes/SortScene.js`: “The Forge,” Bubble/Selection/Insertion, step/auto/reset, comparisons/swaps, compound product comparator. Integrate Java `Task` class/objects, next-task selection, total duration, and the assignment's five-value Bubble trace here. |
+| **M7** | `scenes/MergeScene.js`: “The Split and Join,” merge-sort split/merge tree, i/j/k, prediction and leftover-copy loop. |
+| **M8** | `scenes/QuickScene.js`: “The Pivot,” Lomuto partition and recursive subarrays using the supplied array. |
+| **M9** | `dsa/Recursion.js` + `scenes/RecursionScene.js`: “The Call Stack,” factorial, sum, Fibonacci, print numbers, memoization, and Tower of Hanoi, with calls/returns and call counts. |
+| **M10** | `scenes/BossScene.js`: final mixed exam with 20 random multiple-choice questions, 60 seconds each, plus five live traces and a final score/rank. |
+| **M11** | `scenes/WorldScene.js`: top-down hub connecting the seven rooms, arrow-key movement, room entry, completion stars, and ESC return from any room. |
 
-## Shared learning and algorithm requirements
+Each milestone must run by opening `index.html` in a browser (internet is needed for Phaser CDN) and must preserve the earlier playable milestones. Do not proceed to the next room/milestone until the learner says “next.” The web project's Preview server may be used to verify playability, but browser delivery must remain a static root `index.html`.
 
-Every data structure must be a real JavaScript class in `dsa/`; the scene/UI must display the state returned by that same class, not a decorative duplicate. Every scene shows a live Trace Panel containing its title, the current algorithm line, relevant variable/value pairs, and the five most recent log messages. Update it on every step. Log every algorithm action to the browser console with the exact operation/logic and state transition, such as `push(30): top 1→2, stackArray[2]=30`.
+## Exact game requirements
 
-Keep the color semantics consistent: green for add/push/insert; orange for remove/pop/delete; blue for pointer variables; red for errors, overflow, and underflow; gold for the quicksort pivot. Preserve the prompt's green success and orange wrong-answer feedback. Use the specified names where applicable: `top`, `front`, `rear`, `nItems`, `first`, `i`, `j`, `k`, `pivot`, `lowIndex`, and `highIndex`.
+### Global interaction and teaching rules
 
-`dsa/BigO.js` provides `proveTheta(fn, g, c1, c2, n0)`, `growthTable(n)`, and `countLoopOps(fragmentId, n)`. Include three named loop fragments in the game so operation counts are exact and reproducible; because arbitrary code cannot be proven for all infinite `n` by finite execution, label `proveTheta` honestly as a bounded computational check and show its checked range rather than claiming a formal proof.
+- Every data structure is a real JavaScript class under `dsa/`; the exact instance the UI renders is the one each operation mutates.
+- Every gameplay scene shows a Trace Panel with the relevant variables, current algorithm line, and recent log. Include, as relevant: stack `top`, `stackArray`, `size`; queue `front`, `rear`, `nItems`, `queueArray`; linked list `first`, `current`, `previous`; sort `i`, `j`, `pass`, `swaps`, `comparisons`; search `left`, `right`, `mid`, `inspections`; recursion current `n`, depth, return value, call count.
+- Before every push/pop/insert/swap and every other predictable state-changing operation, use `askPredict(question, options, correctIndex, explanation)`. Correct = +10/green; wrong = show answer/orange/no penalty.
+- Log every operation to the console with the exact logic line and state, e.g. `push(30): ++top FIRST (1→2), THEN store stackArray[2]=30`.
+- Each room has easy/medium/hard rounds. Use the colour key: green add/push/insert; orange remove/pop/delete; blue pointers; red errors/overflow/underflow; gold quicksort pivot. Colour is always paired with text/shape meaning.
+- All visible text is at least 16px, high contrast, with dark background `#0b1020`.
+- After every JavaScript method, place the exact-format explanation block immediately after its closing brace. Every line of algorithm logic has both a WHY and an IF-WRONG explanation. Example format:
 
-The Java Lab must respect the assignment's constraints: use Java for lesson examples; no `Arrays.sort()`, streams, `ArrayList`, collection classes, reversed-string creation, `StringBuilder.reverse()`, or built-in search when the assignment prohibits them. Keep original array order and use zero-based indices. For Task ties, higher priority wins, then shorter duration, then earlier array position. Do not sort the task array.
-
-## Technical structure
-
-Use the user's root-file layout and plain script loading so `index.html` can be opened directly:
-
-```text
-index.html                 Phaser CDN, game container, script load order
-main.js                    Phaser configuration and scene registration
-scenes/BootScene.js
-scenes/MenuScene.js
-scenes/WorldScene.js       map hub and room navigation
-scenes/StackScene.js
-scenes/QueueScene.js
-scenes/LinkedListScene.js
-scenes/SearchScene.js
-scenes/SortScene.js
-scenes/MergeScene.js
-scenes/QuickScene.js
-scenes/RecursionScene.js
-scenes/JavaLabScene.js     six Java assignment lessons
-scenes/BossScene.js
- dsa/Stack.js
- dsa/Queue.js
- dsa/LinkedList.js
- dsa/Sorts.js
- dsa/Search.js
- dsa/Recursion.js
- dsa/BigO.js
- ui/TracePanel.js
- ui/Prediction.js           shared prediction/score handling
- ui/Controls.js             keyboard and touch controls
- capacitor.config.js        Android wrapper configuration
- scripts/copy-web.js        copy static files for Capacitor; no bundler
- www/                       Capacitor's copied web assets
- AGENTS.md                  agent instructions and current handoff log
- plan.md                    approved scope/design record
- README.md                  browser run, lesson map, Android prerequisites
- CONTRIBUTING.md            branch/fork and owner-reviewed PR rules
- .github/pull_request_template.md
+```js
+// ===== EXPLANATION =====
+// Line 3: this.top = -1;
+//   WHY: -1 means "empty" because valid array indices start at 0.
+//   IF WRONG: leaving top=0 would make an empty stack look like it
+//             has one item, causing pop() to return garbage.
+// =========================
 ```
 
-Load Phaser 3 from its CDN first in `index.html`, followed by `dsa/` classes, shared `ui/`, scene scripts, and `main.js` as classic scripts (no ES-module imports that fail under `file://`). Game art is built from Phaser Graphics: rectangles, circles, arrows, bars, nodes, text, and the player/magnifier shapes. Keep visible text at least 16px with high contrast. Provide arrow-key movement, Space to step, Enter to confirm, plus touch equivalents.
+### Lecture invariants and rooms
 
-Capacitor may use a small static-copy script to mirror the root game files into `www/` before `npx cap sync android`; this is not a bundler and is not needed to play in a browser. Progress stays local; no account/backend/analytics is in scope. Do not attempt APK signing without an Android SDK/keystore. Put a static route manifest at `/manus-routes.json` for the managed Preview route.
+- **Stack — “The Plate Tower”:** `top = -1`; max size 5. Push increments `top` first, then stores (`++top`, then array write); pop reads first, then decrements. Buttons PUSH (opens input), POP, PEEK, RESET. Character (circle with eyes) stands at base; blue top arrow beside top plate. Predict before every push/pop. On overflow show red flash plus `OVERFLOW: top == maxSize-1, cannot push.` On underflow show red flash plus `UNDERFLOW: top == -1, nothing to pop.` After pop grey and strike through the cell but leave it visible, proving the value remains in the array while `top` moves below it. Trace: top, array, size. Log `push(30): ++top FIRST (1→2), THEN store stackArray[2]=30`.
+- **Queue — “The Monster Line”:** horizontal five monster circles with eyes; front on left, rear on right; flat same-array view with numeric indices. Initialize `front=0`, `rear=-1`, `nItems=0`. SPAWN, ATTACK, PEEK, RESET. On insert, move and wrap rear before storing; on remove, read first, then move/wrap front. Animate rear jumping from 4 to 0 with a curved arrow; predict before spawn/attack. Overflow: `nItems == maxSize, queue full.` Underflow: `nItems == 0, queue empty.` Log `insert(60): rear moves 4→5→wrap to 0, then queueArray[0]=60, nItems++`.
+- **Linked list — “The Chain”:** horizontal rounded nodes with values, `next` arrows, final `null`, blue `first` arrow. INSERT_FIRST(input), DELETE_FIRST, FIND(input), DISPLAY; also demonstrate keyed `DELETE(key)` with previous/current arrows. Predict `after insertFirst(40), what does first point to?` Implement exact order `newLink.next = first; first = newLink;`. Log that line.
+- **Search — “The Detective”:** 10 number boxes and magnifier. LINEAR/BINARY toggle. Linear scans left-to-right, highlights every box, counts inspections, returns first match index or `-1`; binary requires pre-sorted array, shows blue left/right/mid arrows and orange checked midpoint, with `mid = left + (right-left)/2`. Ask `For linear search of 9, how many inspections?` and `For binary search, which index is checked first?`. Print `Records inspected: X` before returning. Include exact trace example `binarySearch: left=0 right=9 mid=4 a[4]=16 < key=23 → left=5`.
+- **Sort — “The Forge”:** row of seven value bars. Choose BUBBLE/SELECTION/INSERTION; STEP/AUTO/RESET. Bubble highlights adjacent comparisons and green swap; Selection marks min-so-far orange/current blue; Insertion lifts key and shifts larger values right with green arrows. Show comparison/swap counters, pass, i/j; time with `performance.now()` and explain warm-ups plus five timed runs. Ask after pass 1 of Bubble sort on `[6,3,8,2,5,1,7]`. Hard mode sorts Product objects by `stockValue DESC, id ASC`. Include console example such as `bubbleSort: compare a[2]=8 > a[3]=2 → swap → [6,3,2,8,5,1,7], swaps++`.
+- **Merge — “The Split and Join”:** split arrays into halves, quarters, single cells, then merge; show i/j/k arrows; predict whether next value is from left[i] or right[j]; copy smaller value with green flash; show leftover-copy loop and all halves/merged array in trace.
+- **Quick — “The Pivot”:** six values; use PDF example `[8,3,1,7,9,2]` round 1. Gold pivot is last value; blue i starts -1; red j starts 0. Step Lomuto: compare `a[j]` with pivot; if `<=`, increment i, swap `a[i]`/`a[j]`, flash green; otherwise only advance j. At end swap `a[i+1]` with pivot, turn pivot green, bracket subarrays, then recurse. Base subarray size 0/1 skips. Ask `Does j=3 swap? a[3]=7 vs pivot=2?` Trace `lowIndex`, `highIndex`, pivot, i, j.
+- **Recursion — “The Call Stack”:** vertical method frames push on calls/pop on returns. Toggle FACTORIAL/SUM/FIBONACCI/PRINT_NUMBERS/HANOI; input n, STEP/AUTO/RESET. Show factorial 5→0 and unwind results 2→6→24→120. Fibonacci tree greys repeated subtrees and shows 25 calls for fib(6); memoization toggle drops calls and shows memo array. Print-numbers toggle before/after recursion flips output `5,4,3,2,1` vs `1,2,3,4,5`. Ask `factorial(3)` and number of fib(6) calls. Trace current n, depth, return value, call count.
+- **Boss:** 20 random MCQs, each with a 60-second timer; five mini-traces ask for the next state. +10 correct, 0 wrong; pass mark 60%. Rank: 0–40% O(2ⁿ) Cursed; 41–60% O(n²) Squire; 61–75% O(n log n) Knight; 76–90% O(n) Champion; 91–100% O(1) Grandmaster. Save score in localStorage.
+- **World hub:** M11 top-down map with seven labelled room rectangles; circle-with-eyes player moves with arrow keys/arcade physics; walking into room launches it; completed rooms show a star when all three rounds are passed; ESC returns from any room.
 
-## Repository collaboration and session continuity
+### Java assignment integration
 
-The public repo is `https://github.com/Foday-Sall/DSA`; its short name is `DSA`, while the game title is `DSA Dungeon`. Keep the Manus-managed `origin` untouched and use a separate GitHub remote for the public collaboration repo. Put `AGENTS.md` there before gameplay implementation so another agent can understand the full spec, current state, and exact stopping point. At the start of every session, agents read `AGENTS.md` and `plan.md`; after approval they also read `TODO.md`. Update the status and dated session log after every meaningful milestone and before pausing. Only mark an item complete when code/docs/evidence show it is done. AI agents and other contributors work on branches/forks and submit PRs; the repository owner reviews and merges. Do not grant or imply anonymous write access.
+Use Java examples in the Search and Sort learning path, corresponding to the original assignment, and explain them line by line without completing/submitting the learner's entire assignment. Preserve: (1) `findSmallest(int[] values)` on a nonempty array, identify initialization and `<= values.length` bugs, corrected trace on `{8,3,9,1,6}` with i/smallest after each iteration; (2) `isPalindrome(String text)` ignores case/spaces, uses left/right indices, stops on mismatch, does not reverse or use `StringBuilder.reverse()`; (3) `firstIndexOf`, `lastIndexOf`, `countOccurrences`, valid size 5–20, zero-based, return -1 if absent, no built-in search; (4) `removeAll(values,size,target)`, input size 1–15, stable in-place removal within valid logical size, no second array/collection, return new size, print valid prefix/new size/removed count only; (5) `Task` private title/priority/duration, constructor/getters/displayDetails; five assignment sample tasks; choose higher priority, then shorter duration, then earlier array position; calculate/display total duration, do not sort; (6) Bubble trace `{6,3,8,2,5}`, after each pass, swaps/pass, final array, total comparisons/swaps, explain `data.length - 1 - pass`.
+
+Do not use `Arrays.sort()`, streams, `ArrayList`, other Java collection classes, built-in searching, or reversed-string creation where the assignment prohibits them.
+
+### Big-O
+
+Implement `dsa/BigO.js` with `proveTheta(fn,g,c1,c2,n0)`, `growthTable(n)` showing O(1), O(log n), O(n), O(n log n), O(n²), O(2ⁿ), and `countLoopOps(fragmentId,n)` for three clearly documented loop fragments. The course fragments were not supplied; define and document the three examples used. Because finite program execution cannot prove an arbitrary inequality for every infinite n, have `proveTheta` report its bounded tested range and label it a computational check, not a formal proof.
+
+## Files and technical structure
+
+Keep the prompt's root layout and classic script tags so direct `file://` play works. No npm/Vite/Webpack/bundler is needed for the game runtime; Phaser CDN only is `https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js`. Planned source: `index.html`, `main.js`, `scenes/BootScene.js`, `MenuScene.js`, `WorldScene.js`, `StackScene.js`, `QueueScene.js`, `LinkedListScene.js`, `SearchScene.js`, `SortScene.js`, `MergeScene.js`, `QuickScene.js`, `RecursionScene.js`, `BossScene.js`; `dsa/Stack.js`, `Queue.js`, `LinkedList.js`, `Sorts.js`, `Search.js`, `Recursion.js`, `BigO.js`; `ui/TracePanel.js`, shared prediction and controls helpers; `audio/` and `CREDITS.md` for sourced sounds/music if approved. Keep the assignment lessons inside M5/M6 rather than inserting an extra build milestone.
+
+For Capacitor, provide `capacitor.config.js` and a simple static-copy helper to place the unbundled browser files under `www/` before `npx cap sync android`; the copy helper is packaging only, not needed to play in a browser. The current environment has Java but no Android SDK/`ANDROID_HOME`, so do not promise an APK/AAB. Use no backend, accounts, analytics, paid content, or real-money coin purchases. Provide a static `/manus-routes.json` for Webdev Preview.
+
+## Agent continuity and public repo
+
+Public repository: `https://github.com/Foday-Sall/DSA` (repo name `DSA`; game title `DSA DUNGEON`). `AGENTS.md` is required and is already public with the current handoff. Keep the Manus `origin` unchanged; public GitHub remains a separate collaboration remote. Future agents read `AGENTS.md`, `plan.md`, and `TODO.md` before work. At every milestone: update the AGENTS status board and dated log with exact files, commands/check results, what remains, blockers, and next milestone; commit and push the milestone plus handoff to the public repo; verify the remote; give the learner the four required end-of-milestone sections; then stop and wait for “next.” No contributor/agent pushes unreviewed work to the owner's main; use a branch/fork and PR for outside contributions, with the owner deciding merges. Keep the uploaded assignment PDF out of the public repo.
 
 ## Design direction
 
-Use a readable 2D arcade dungeon built entirely from Phaser Graphics, as requested. The dungeon should feel adventurous but calm enough for study. A simple named player avatar is a circle; all props, pointers, bars, nodes, and the magnifier are drawn shapes, never imported artwork.
+Use a high-contrast 2D dungeon arcade visual style, with the prompt's dark background `#0b1020`, Phaser Graphics for arrays and objects, and the exact semantic colour key above. Make the array's index labels, values, pointers, movement, and before/after state large and readable. Keep at least 16px type, desktop Trace Panel fixed to the side and phone Trace Panel in a fixed lower panel. Drag and drop is supported by button/keyboard equivalents. Add an audio settings control and spoken explanation captions. Coins are celebratory game tokens, never money. Character art remains Phaser Graphics unless the owner explicitly chooses the royalty-free asset exception.
 
-- **Core principles:** expose algorithm state; ask before executing; reward a correct mental model; explain errors without punishment; keep controls touch/keyboard accessible.
-- **Color philosophy:** dark, muted dungeon surfaces create contrast; green means data added, orange removed, blue identifies pointers, red signals errors/overflow/underflow, and gold singles out the pivot. The semantic mapping outranks decorative styling.
-- **Layout:** room visualization in the main canvas; desktop Trace Panel fixed at the side; on narrow mobile screens, an always-visible lower panel preserves the same trace information without squeezing the main visualization.
-- **Interaction/animation:** step-by-step first, optional auto-play for sorting; short motions with a clear pause on comparisons/swaps; keyboard and touch parity; avoid motion that hides state.
-- **Typography/voice:** system sans-serif for instructions and system monospace for pseudocode/values; minimum 16px text. Microcopy is patient and direct: “Predict first—what changes next?” and “Here’s the line that changed it.”
-- **Brand:** “DSA Dungeon,” a playful but precise practice game; encouraging, transparent, hands-on. Use an original bracket-and-pointer wordmark if needed, created without imported gameplay imagery.
+Personality: energetic, funny, clear, never shaming. Use short, direct guidance and visible reactions. Motion should confirm state changes, not obscure them; preserve a simple step-by-step mode, with optional autoplay only where specified. Support keyboard arrows to move, Space to step, Enter to confirm, ESC to return, and touch controls.
 
-## Boundaries and known implementation limits
+## Approval and current boundary
 
-The public repository and `AGENTS.md` are for owner-reviewed collaboration; public visibility allows reading/forking but does not give every AI agent write access. The prompt's Phaser CDN needs internet to load Phaser. Capacitor source/setup can be prepared here, but this environment currently lacks `ANDROID_HOME`; native APK/AAB build and signing remain dependent on an Android SDK and credentials. The supplied 3 Big-O lecture fragments are not included verbatim, so the game must define and document its own three example fragments unless the owner later supplies course snippets. The game should teach, not submit the user's assignment for them.
+This revised plan is **not yet approved**. The owner has requested visual learning, drag-and-drop interactions, audio/music/voice, non-purchasable game coins, public handoffs at each milestone, and a milestone-by-milestone wait-for-“next” workflow. The precise character art source remains unresolved because “royalty-free character assets” conflicts with the uploaded prompt's “Phaser Graphics only, no images.” No asset search/retrieval or gameplay implementation should start until the owner chooses that art policy and approves the plan.
