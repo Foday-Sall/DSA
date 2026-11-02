@@ -4,17 +4,16 @@
 
 ## Current handoff — 2026-11-02
 
-**Current stopping point:** The owner supplied a refreshed, exact build-order prompt and asked for a more visual, audio-rich game with drag-and-drop, voice explanations, in-game coins, and real characters. The owner explicitly chose real character art, overriding the attached prompt's no-images rule for character sprites only; arrays, pointers, traces, and algorithm visuals remain Phaser Graphics. Source free/open-license character art and retain credits, but do not search/retrieve assets until plan approval. `GAME_SPEC.md`, `plan.md`, and this handoff are public. **Only approval of the complete revised plan remains; no game code or external assets have been started.**
+**Current stopping point:** The owner approved continuing implementation. Milestone 1 is complete: a direct-open Phaser menu is implemented and verified. Stop here until the owner says `next`, then implement M2 (Stack / The Plate Tower). The owner explicitly chose real character art, overriding the attached prompt's no-images rule for character sprites only; arrays, pointers, traces, and algorithm visuals remain Phaser Graphics. Source free/open-license character art and retain credits when the relevant milestone needs it. `GAME_SPEC.md`, `plan.md`, `TODO.md`, and this handoff are public.
 
-**Completed and verified:** The public repo is <https://github.com/Foday-Sall/DSA>; its latest verified public `main` is documentation-only. A separate `github` remote points there; keep the Manus-managed `origin` untouched. The local workspace is `/home/ubuntu/dsajourney`; its `main` has no upstream configured, so inspect the Manus checkpoint workflow before changing branch tracking. The latest `GAME_SPEC.md` copy matched the uploaded prompt by SHA-256. The local environment has Node.js, pnpm, and Java, but `ANDROID_HOME` is unset. For each handoff, verify the latest local documentation commit is also on the public `github/main` remote.
+**Completed and verified:** The public repo is <https://github.com/Foday-Sall/DSA>; `origin` points to that GitHub repository in this checkout. M1 consists of `index.html`, `main.js`, `scenes/BootScene.js`, `scenes/MenuScene.js`, and `TODO.md`. Node syntax checks passed and a local HTTP check confirmed the entry page serves the Phaser CDN and local scripts. The latest `GAME_SPEC.md` copy matched the uploaded prompt by SHA-256. The local environment has Node.js, pnpm, and Java, but `ANDROID_HOME` is unset. For each handoff, verify the latest commit is pushed to public `github/main`.
 
-**Not done:** No Phaser game, Java lesson content, DSA classes, scene, Trace Panel, sound/music/voice, drag/drop, game coin loop, character artwork/audio assets, Capacitor Android project, `TODO.md`, README, contribution guide, PR template, gameplay-source push, or Android package has been implemented or verified.
+**Not done:** M2–M11 gameplay, DSA classes, Trace Panels, sound/music/voice, drag/drop, game coin loop, character artwork/audio assets, Capacitor Android project, README, contribution guide, PR template, and Android package remain unfinished.
 
 **Next safe steps:**
-1. Obtain explicit approval of the full revised plan; the character-art choice is resolved in favor of free/open-license sprites for characters only.
-2. Keep the uploaded Java assignment PDF private. After approval, create `TODO.md`, inspect Webdev diagnostics and Git checkpoint setup, then implement M1 only.
-3. Test that `index.html` runs, update/push `AGENTS.md`, deliver the four milestone wrap-up items in `GAME_SPEC.md`, and stop until the owner says “next.”
-4. Repeat one milestone at a time. Before each handoff, record exact files, actual commands/checks and outcomes, work remaining, blockers, and the next milestone. Never mark unverified work complete.
+1. Keep the uploaded Java assignment PDF private and preserve the public handoff files.
+2. Wait for the owner to say `next`; then implement only M2, test it, update this handoff, and push it.
+3. Repeat one milestone at a time. Before each handoff, record exact files, actual commands/checks and outcomes, work remaining, blockers, and the next milestone. Never mark unverified work complete.
 
 ## Owner-requested direction and non-negotiable decisions
 
@@ -117,12 +116,12 @@ Java examples must obey the assignment's ban on `Arrays.sort()`, streams, `Array
 | --- | --- | --- |
 | Public repo `Foday-Sall/DSA` created and verified public | Done | `gh repo view` confirmed public URL. |
 | Latest prompt `GAME_SPEC.md` | Done | Copied verbatim from the owner's attachment; SHA-256 matched before publishing. |
-| Revised `plan.md` | Draft | Includes the Java assignment, eleven milestones, licensed character art, drag/drop, voice/audio and in-game coins; awaiting owner approval. |
+| Revised `plan.md` | Approved | Includes the Java assignment, eleven milestones, licensed character art, drag/drop, voice/audio and in-game coins. |
 | Public handoff (`AGENTS.md`, `plan.md`, `GAME_SPEC.md`) | Done | Latest docs are on public `main`; verify GitHub contents and inspect `git log` for the newest sync. |
 | Character art source | Resolved by owner | Use free/open-license sprites for characters only; preserve credits. Search/retrieve after plan approval. |
 | Voice/audio, drag/drop, collectible game coins | Planned, not built | Implement only after plan approval; coins are gameplay rewards, never real money. |
-| `TODO.md` | Not started | Create only after owner approves the revised plan. |
-| Phaser game / DSA classes / scenes / Trace Panel | Not started | After approval, deliver M1 only and wait for “next.” |
+| `TODO.md` | M1 complete | Tracks exact M1 evidence and the M2 acceptance clauses. |
+| Phaser game / DSA classes / scenes / Trace Panel | M1 complete | Direct-open menu is implemented; wait for `next` before M2. |
 | Java Lab lesson content | Not started | Implement all six assignment topics after approval. |
 | Capacitor Android wrapper | Not started | SDK is absent; prepare configuration and sync path after approval. |
 | Public code release / PR workflow | Not started | Publish code and instructions after implementation; keep owner review/merge. |
@@ -179,3 +178,11 @@ Java examples must obey the assignment's ban on `Arrays.sort()`, streams, `Array
 - Committed as `2adb0e7` and pushed to public `github/main`. Verification confirmed the repo is public, contains `AGENTS.md`, `GAME_SPEC.md`, and `plan.md`, and the remote ref matched the local commit. `git diff --check` passed.
 - No assets were searched/retrieved and no implementation started; the full plan still awaits explicit approval.
 - Next: ask for plan approval. If approved, create `TODO.md` and implement only M1, then test, update/push this log, present the required learning wrap-up, and wait for “next.”
+
+### 2026-11-02 — Milestone 1 implemented
+
+- The owner explicitly asked to continue implementing and to update GitHub/handoff progress so another agent can resume.
+- Added `index.html`, `main.js`, `scenes/BootScene.js`, `scenes/MenuScene.js`, and `TODO.md`.
+- M1 behavior: Phaser 3.80.1 CDN loads before local scripts; BootScene starts MenuScene; the menu shows `DSA DUNGEON`, Start, Instructions, keyboard hints, responsive FIT scaling, and an honest “Plate Tower unlocks in Milestone 2” status instead of starting an unregistered scene.
+- Checks run from `/home/ubuntu/DSA`: Node syntax checks, file/reference checks, and a local `python3 -m http.server` plus `curl` entry-page check. An initial overly strict grep returned non-zero before the HTTP check; the corrected checks passed.
+- Remaining work: M2 Stack class and Plate Tower scene. Do not implement M2 until the owner says `next`.
