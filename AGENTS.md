@@ -16,7 +16,7 @@
 3. Before game work, inspect the bound Webdev config/diagnostics and Git checkpoint relationship; preserve the Manus `origin` and the separate public `github` remote.
 4. Before each handoff, state exactly which files changed, what commands/checks actually ran and their results, what remains, any blockers, and the next concrete actions. Never mark work complete without evidence.
 
-## Owner-approved direction and non-negotiable decisions
+## Owner-requested direction and non-negotiable decisions
 
 - Public repository: `https://github.com/Foday-Sall/DSA`; repo name `DSA`. The game title from the uploaded prompt is **DSA Dungeon**.
 - The owner wants a public, collaborative repo where AI agents can submit pull requests and the owner reviews/merges them. Contributors should work from branches/forks; public status alone does not authorize direct writes. Do not overwrite Manus `origin` or state that anonymous agents can push.
@@ -48,7 +48,7 @@ Use classic script tags in safe load order so `file://` opening works; avoid ES 
 1. Every data structure is a real JS class in `dsa/`; the UI renders the exact same class instance/state, not a fake visual copy.
 2. Every scene shows a live Trace Panel: scene/topic title, exact current line of algorithm logic, relevant variables, and the last five operation logs. Update it on every step. Typical variables: `top`, `front`, `rear`, `nItems`, `first`, `i`, `j`, `k`, `pivot`, `left`, `right`, `mid`, `depth`, and return value.
 3. Log every algorithm state-changing action to the browser console with the operation and exact algorithm line/state transition. Example: `push(30): top 1→2, stackArray[2]=30`.
-4. When possible, the player must predict before execution via multiple choice; then animate confirmation/correction.
+4. Every scene uses `askPredict(question, options, correctIndex, explanation)` before executing an action whenever possible; then animate confirmation/correction.
 5. Color key: GREEN = add/push/insert; ORANGE = remove/pop/delete; BLUE = pointer variable; RED = error/overflow/underflow. Quicksort pivot is gold. Correct prediction flashes green; incorrect prediction flashes orange and explains without penalty.
 6. Each room has 3 rounds: easy, medium, hard. Each correct prediction is worth +10; score is based on correct predictions. Save score in `localStorage` per room.
 7. `BossScene`: 20 multiple-choice questions plus 5 live traces mixed across all topics; 60 seconds per question. Grades: O(1) Grandmaster, O(n) Knight, O(n²) Squire, O(2ⁿ) Cursed.
@@ -56,12 +56,12 @@ Use classic script tags in safe load order so `file://` opening works; avoid ES 
 ### Room details
 
 - **Stack:** vertical container with plates. Controls: Push(x), Pop, Peek, IsEmpty, IsFull; input for x. Predict resulting `top` before push/pop with 3 choices. Show top index arrow and grey popped cells. Overflow/underflow = red flash/message. Hard round pushes letters `J A V A` left-to-right and pops to show `A V A J`.
-- **Queue:** circular ring of 5 slots and flat same-array view; front orange arrow, rear green arrow, `nItems` badge. Controls Insert(x), Remove, Peek, Size. Show wraparound when rear passes 4 to 0 with curved arrow. Predict rear after insert(60) when rear=4 (choices 0,4,5,error). Overflow when full, underflow when empty. Hard round predicts BFS visit order in a small tree.
+- **Queue:** circular ring of 5 slots and flat same-array view; front orange arrow, rear green arrow, `nItems` badge. Controls Insert(x), Remove, Peek, Size. Show wraparound when rear passes 4 to 0 with curved arrow. Ask exactly `after insert(60) with rear=4, where does rear point?` with choices `0`, `4`, `5`, or `error`. Overflow when full, underflow when empty. Hard round predicts BFS visit order in a small tree.
 - **Linked list:** rounded nodes, `next` arrows, `null`; controls InsertFirst(x), DeleteFirst, Find(key), Delete(key), Display. Show `first`/head movement and `previous`+`current` during keyed delete. Predict new first. Hard round maps stack push to insertFirst and pop to deleteFirst.
-- **Search:** number boxes and a magnifier drawn with Phaser Graphics. Linear search counts cell inspections and prints `Records inspected: X`; binary search on sorted array shows left/right/mid and `mid = left + (right-left)/2`. Ask count of inspections / first midpoint. Hard round searches Student objects by matric with visible fields. Include Java assignment firstIndexOf, lastIndexOf, countOccurrences, zero-based indices, and target-not-found `-1`.
+- **Search:** number boxes and a magnifier drawn with Phaser Graphics. Linear search counts cell inspections and prints `Records inspected: X`; binary search on sorted array shows left/right/mid and `mid = left + (right-left)/2`. Ask how many inspections linear search of `9` takes and which midpoint is checked first. Hard round searches Student objects by matric with visible fields. Include Java assignment firstIndexOf, lastIndexOf, countOccurrences, zero-based indices, and target-not-found `-1`.
 - **Sort:** Bubble, Selection, Insertion. Visual bars. Controls algorithm choice, Step, Auto-play, Reset. Show comparisons/swaps. Bubble highlights adjacent pair; Selection shows min-so-far/current; Insertion lifts key and shifts right. Ask after the first Bubble pass on `{6,3,8,2,5}`. Hard round sorts products by stock value descending, tie `product_id` ascending. Time via `performance.now()`; explain warm-ups and five timed runs.
 - **Merge:** split array down to single cells, merge back; show i/j/k; predict next value from left[i] or right[j]; show leftover-copy loop.
-- **Quick:** Lomuto partition, last element pivot/gold, i blue, j red; compare `a[j]` to pivot, swap when `<=`, advance; after loop swap `a[i+1]` with pivot, mark pivot final, recurse on subarrays; base case size 0/1 skips. Include predictions such as whether `j=3` swaps for `7 vs 2` and pivot destination.
+- **Quick:** Lomuto partition, last element pivot/gold, i blue, j red; compare `a[j]` to pivot, swap when `<=`, advance; after loop swap `a[i+1]` with pivot, mark pivot final, recurse on subarrays; base case size 0/1 skips. Ask `does j=3 swap? (7 vs 2)` yes/no, and where the pivot lands.
 - **Recursion:** nested frames for factorial 5 to 0; frame push/call and pop/return. Include Factorial(n), Sum(n), Fibonacci(n), PrintNumbers(n). Toggle printing before/after recursive call and show output order flip. Fibonacci call tree, grey repeated subtrees, show 25 calls for fib(6); memoization toggle reduces calls and displays memo array. Include predictions for factorial(3), fib(6) call count.
 - **World hub:** 2D map, circle player walks with arrow keys/arcade physics; enter room launches it; show stars per room. Provide touch equivalents for phones.
 - **Boss:** exact question counts, timer, and grade ranks above.
@@ -105,7 +105,7 @@ Java examples must obey the assignment's ban on `Arrays.sort()`, streams, `Array
 | Public repo `Foday-Sall/DSA` created and verified public | Done | `gh repo view` confirmed public URL. |
 | Detailed Phaser prompt read and captured in this handoff | Done | Requirements transcribed above from the owner's uploaded prompt. |
 | Revised `plan.md` | Draft | Includes the full DSA Dungeon spec plus Java assignment; awaiting owner approval. |
-| `AGENTS.md` handoff and revised plan in public GitHub repo | Done | Commit `e30c48e`; remote contents verified with GitHub API. |
+| `AGENTS.md` handoff and revised plan in public GitHub repo | Done | Both files are on public `main`; inspect `git log` and GitHub contents for the latest documentation sync. |
 | `TODO.md` | Not started | Create only after owner approves the revised plan. |
 | Phaser game / DSA classes / scenes / Trace Panel | Not started | Implement only after approval. |
 | Java Lab lesson content | Not started | Implement all six assignment topics after approval. |
@@ -127,6 +127,7 @@ Java examples must obey the assignment's ban on `Arrays.sort()`, streams, `Array
 ### 2026-11-02 — handoff documents published
 
 - Committed `AGENTS.md` and `plan.md` as `e30c48e` and pushed `main` to the separate public `github` remote. GitHub API confirmed both files are visible in `Foday-Sall/DSA`.
+- Cross-checked the full uploaded specification again and added the exact `askPredict(question, options, correctIndex, explanation)` interface and queue/search/quicksort example prompts to both planning documents.
 - Verified the Manus `origin` is still configured and unchanged. The local `main` branch currently has no upstream; do not guess or change it before inspecting the project's official checkpoint state.
 - Work completed: public agent handoff and detailed plan only. Game implementation is still not started.
 - Next action: obtain owner approval of the revised plan; after approval create `TODO.md` and begin the game in milestones.
