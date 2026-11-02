@@ -120,8 +120,8 @@ Java examples must obey the assignment's ban on `Arrays.sort()`, streams, `Array
 | Public handoff (`AGENTS.md`, `plan.md`, `GAME_SPEC.md`) | Done | Latest docs are on public `main`; verify GitHub contents and inspect `git log` for the newest sync. |
 | Character art source | Resolved by owner | Use free/open-license sprites for characters only; preserve credits. Search/retrieve after plan approval. |
 | Voice/audio, drag/drop, collectible game coins | Planned, not built | Implement only after plan approval; coins are gameplay rewards, never real money. |
-| `TODO.md` | M1 complete | Tracks exact M1 evidence and the M2 acceptance clauses. |
-| Phaser game / DSA classes / scenes / Trace Panel | M2 complete | Menu and Plate Tower are playable; wait for `next` before M3. |
+| `TODO.md` | M5 complete | Tracks M1–M5 evidence and the M6 acceptance clauses. |
+| Phaser game / DSA classes / scenes / Trace Panel | M5 complete | Menu, Stack, Queue, Linked List, and Search rooms are playable; wait for `next` before M6. |
 | Java Lab lesson content | Not started | Implement all six assignment topics after approval. |
 | Capacitor Android wrapper | Not started | SDK is absent; prepare configuration and sync path after approval. |
 | Public code release / PR workflow | Not started | Publish code and instructions after implementation; keep owner review/merge. |
@@ -194,3 +194,13 @@ Java examples must obey the assignment's ban on `Arrays.sort()`, streams, `Array
 - Kept rendering tied to the same `Stack` instance used by the operations. The scene includes a live `top`, `stackArray`, `size`, invariant, and recent-log panel.
 - Checks run from `/home/ubuntu/DSA`: `node --check` for all changed JavaScript, a Node VM invariant test covering push/pop/overflow/underflow, script-order and scene-registration checks, HTTP fetches for Stack sources, and `git diff --check`; all passed. The HTTP command reused the already-running local server because port 4173 was occupied, and the requested files still fetched successfully.
 - Remaining work: M3 Queue / The Monster Line. Do not implement M3 until the owner says `next`.
+
+### 2026-11-02 — Milestones 3–5 implemented
+
+- Added `dsa/Queue.js`, `scenes/QueueScene.js`, `dsa/LinkedList.js`, `scenes/LinkedListScene.js`, `dsa/Search.js`, and `scenes/SearchScene.js`.
+- Updated `index.html`, `main.js`, and `scenes/MenuScene.js` so the new Queue, Linked List, and Search rooms are loaded, registered, and reachable as menu doors.
+- Queue includes FIFO insert/remove, circular wraparound, SPAWN/ATTACK/PEEK/RESET, prediction prompts, overflow/underflow, and `front`/`rear`/`nItems`/`queueArray` trace.
+- Linked List includes `insertFirst`, `deleteFirst`, `find`, `display`, prediction prompts, node-chain visuals, and `first`/`current`/`previous` trace.
+- Search includes LINEAR/BINARY modes over a sorted ten-cell array, midpoint highlighting, inspection counts, result feedback, and `left`/`right`/`mid`/`inspections` trace.
+- Node syntax checks and VM invariant tests passed for Queue wraparound/overflow, Linked List traversal/deletion, and linear/binary search. The same files were copied into the Manus Sites project and its `site/` publish directory.
+- Remaining work: M6 Sort and later milestones. Do not implement M6 until the owner says `next`.

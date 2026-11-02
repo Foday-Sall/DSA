@@ -20,17 +20,24 @@ This file is the working checklist for the next agent. Keep it current after eve
 - [x] Log the exact lecture-order operation explanation in the console.
 - [x] Register the scene without breaking the M1 menu.
 
-## Next milestone: M3 — The Monster Line
+### M3 — The Monster Line
 
-- [ ] Add `dsa/Queue.js` from scratch with `front=0`, `rear=-1`, `nItems=0`, five slots, wrap-before-store insert, read-before-move remove, peek, size, and explanations.
-- [ ] Add `scenes/QueueScene.js` with SPAWN/ATTACK/PEEK/RESET, prediction before spawn/attack, horizontal monster line, flat array view, wrap animation/feedback, overflow/underflow, and trace panel.
-- [ ] Preserve the working menu and Plate Tower; stop after M3 and update this handoff.
+- [x] Add `dsa/Queue.js` from scratch with `front=0`, `rear=-1`, `nItems=0`, five slots, wrap-before-store insert, read-before-move remove, peek, size, and explanations.
+- [x] Add `scenes/QueueScene.js` with SPAWN/ATTACK/PEEK/RESET, prediction before spawn/attack, horizontal monster line, flat array view, wrap feedback, overflow/underflow, and trace panel.
+- [x] Preserve the working menu and Plate Tower.
 
-## Later milestones (do not implement before the learner says `next`)
+### M4 — The Chain
 
-- [ ] M3 Queue: circular five-slot queue with `front`, `rear`, `nItems`, wraparound, spawn/attack prediction.
-- [ ] M4 LinkedList: first/current/previous pointers, insert/delete/find/display prediction.
-- [ ] M5 Search: linear and binary search traces plus the Java search/removal assignment lessons.
+- [x] Add `dsa/LinkedList.js` with `first`, `current`, `previous`, `insertFirst`, `deleteFirst`, `find`, `display`, reset, and explanations.
+- [x] Add `scenes/LinkedListScene.js` with INSERT, DELETE, FIND, RESET, prediction, node arrows, head/null display, and trace panel.
+
+### M5 — The Detective
+
+- [x] Add `dsa/Search.js` with linear search and binary search from scratch, inspection counts, and explanations.
+- [x] Add `scenes/SearchScene.js` with LINEAR/BINARY/SEARCH/RESET, sorted ten-cell array, midpoint highlighting, result feedback, and trace panel.
+
+## Next milestones (do not implement before the learner says `next`)
+
 - [ ] M6 Sort: bubble/selection/insertion stepper plus the Java Task and bubble-trace lessons.
 - [ ] M7 Merge: split/merge tree and `i`/`j`/`k` trace.
 - [ ] M8 Quick: Lomuto partition using `[8,3,1,7,9,2]` and recursive subarrays.

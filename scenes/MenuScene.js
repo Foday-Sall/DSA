@@ -29,20 +29,23 @@ class MenuScene extends Phaser.Scene {
       color: this.colors.muted
     }).setOrigin(0.5);
 
-    this.add.text(640, 278, 'MILESTONE 1  •  THE GATEWAY', {
+    this.add.text(640, 278, 'FOUR ROOMS  •  CHOOSE YOUR CHALLENGE', {
       fontFamily: 'Arial, sans-serif',
       fontSize: '18px',
       color: '#93c5fd'
     }).setOrigin(0.5);
-    this.createButton(640, 370, 300, 64, 'START GAME', this.colors.green, () => this.startGame());
-    this.createButton(640, 456, 300, 64, 'INSTRUCTIONS', this.colors.blue, () => this.showInstructions());
-    this.statusText = this.add.text(640, 590, 'The dungeon is ready. Choose a door.', {
+    this.createButton(640, 340, 300, 58, 'STACK: PLATE TOWER', this.colors.green, () => this.startGame());
+    this.createButton(640, 414, 300, 58, 'INSTRUCTIONS', this.colors.blue, () => this.showInstructions());
+    this.createButton(475, 505, 190, 54, 'QUEUE', this.colors.orange, () => this.openRoom('QueueScene'));
+    this.createButton(690, 505, 190, 54, 'LINKED LIST', this.colors.blue, () => this.openRoom('LinkedListScene'));
+    this.createButton(640, 570, 300, 54, 'SEARCH', this.colors.green, () => this.openRoom('SearchScene'));
+    this.statusText = this.add.text(640, 625, 'Choose a room. Every room shows the live algorithm state.', {
       fontFamily: 'Arial, sans-serif',
       fontSize: '18px',
       color: this.colors.muted,
       align: 'center'
     }).setOrigin(0.5);
-    this.add.text(640, 675, 'Keyboard: ENTER = Start  •  I = Instructions', {
+    this.add.text(640, 685, 'Keyboard: ENTER = Stack  •  I = Instructions', {
       fontFamily: 'Arial, sans-serif',
       fontSize: '16px',
       color: '#8293bd'
@@ -101,6 +104,16 @@ class MenuScene extends Phaser.Scene {
   // Line 1: this.scene.start('StackScene');
   //   WHY: Start now opens the first playable DSA room delivered in M2.
   //   IF WRONG: the menu would not connect to the learning game.
+  // =========================
+
+  openRoom(sceneKey) {
+    this.scene.start(sceneKey);
+  }
+
+  // ===== EXPLANATION =====
+  // Line 1: this.scene.start(sceneKey);
+  //   WHY: Each menu door starts the selected playable DSA room.
+  //   IF WRONG: the new rooms would exist in code but remain unreachable.
   // =========================
 
   showInstructions() {
