@@ -154,3 +154,12 @@ Java examples must obey the assignment's ban on `Arrays.sort()`, streams, `Array
 - Updated `AGENTS.md` to make `GAME_SPEC.md` the source of truth, refresh status, preserve the public PR workflow, and require a public handoff update before each stop.
 - Conflict remains unresolved: detailed prompt says Phaser Graphics only/no images; later direct user request asks for royalty-free character assets. No asset search/retrieval, dependencies, app code, or gameplay has started.
 - Next: publish the updated spec/plan/handoff, then ask the owner to resolve the character-art choice and approve this revised plan. After approval, create `TODO.md`, implement M1 only, test it, update/push the handoff, and wait for “next.”
+
+### 2026-11-02 — refreshed specification and plan synced
+
+- Added `GAME_SPEC.md` as a verbatim 260-line copy of the latest user prompt; its SHA-256 matched the uploaded file (`46700181a5fa05785be3a3bb7235df059e5a17da80738c87709a7d76275acac1`).
+- Updated `plan.md` and `AGENTS.md` with milestone-by-milestone delivery, stop/wait for “next,” direct-file playability, WHY/IF-WRONG method comments, visual drag/drop, voice/audio, coins, and the open character-art conflict.
+- Pushed documentation commit `2103be4` to public `github/main`; GitHub confirmed the repository is public and its root contains `AGENTS.md`, `GAME_SPEC.md`, and `plan.md`. `ls-remote` matched the local `HEAD` at verification.
+- No gameplay code, asset retrieval, TODO, dependency install, tests, Capacitor wrapper, or APK has been started.
+- Current blocker: owner must choose Graphics-only characters versus a royalty-free sprite exception and approve the revised plan.
+- Next action after the owner's decision/approval: create `TODO.md`, implement M1 only, verify the menu runs from `index.html`, update/push this handoff, provide the four milestone wrap-up sections, and wait for “next.”
